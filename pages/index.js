@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-export default function Home({ ip }) {
+export default function Home({ ip, data }) {
   return (
     <>
       <Head>
@@ -16,6 +16,7 @@ export default function Home({ ip }) {
               <b>{ip}</b>
             </span>
           </p>
+          <p>{data}</p>
         </div>
       </main>
     </>
@@ -34,9 +35,18 @@ export async function getServerSideProps({ req }) {
     }
   }
 
+  const res = await fetch(
+    `https://api.ipgeolocation.io/ipgeo?apiKey=699a7485adf041749751769a63a28528&ip=${ip}`
+  );
+
+  const data = await res.json();
+
+  console.log(data);
+
   return {
     props: {
       ip,
+      data: JSON.stringify(data),
     },
   };
 }
