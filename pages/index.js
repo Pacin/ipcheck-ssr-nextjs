@@ -1,4 +1,5 @@
 import Head from "next/head";
+import JsonView from "react18-json-view";
 
 export default function Home({ ip, data }) {
   return (
@@ -16,7 +17,7 @@ export default function Home({ ip, data }) {
               <b>{ip}</b>
             </span>
           </p>
-          <p>{data}</p>
+          <JsonView src={data} />
         </div>
       </main>
     </>
@@ -36,17 +37,15 @@ export async function getServerSideProps({ req }) {
   }
 
   const res = await fetch(
-    `https://api.ipgeolocation.io/ipgeo?apiKey=699a7485adf041749751769a63a28528&ip=${ip}`
+    `https://api.ipgeolocation.io/ipgeo?apiKey=0beb06fb28d748f98a926c81f0afbc70&ip=${ip}`
   );
 
   const data = await res.json();
 
-  console.log(data);
-
   return {
     props: {
       ip,
-      data: JSON.stringify(data),
+      data: data,
     },
   };
 }
