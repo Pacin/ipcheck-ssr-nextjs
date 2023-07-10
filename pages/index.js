@@ -42,6 +42,17 @@ export async function getServerSideProps({ req }) {
 
   const data = await res.json();
 
+  if (data.ip) {
+    setCookie(
+      "kub",
+      JSON.stringify({
+        country: data.country_code2,
+        currency: data.currency,
+      }),
+      { req, res, maxAge: 60 * 6 * 24 * 30 }
+    );
+  }
+
   return {
     props: {
       ip,
