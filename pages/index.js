@@ -50,7 +50,7 @@ export async function getServerSideProps({ req, res }) {
         country: data.country_code2,
         currency: data.currency,
       }),
-      { req, res, maxAge: 60 * 6 * 24 * 30 }
+      { req, res, maxAge: 60 * 60 * 24 * 30 }
     );
   }
 
