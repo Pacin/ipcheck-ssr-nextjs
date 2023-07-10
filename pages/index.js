@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import Head from "next/head";
 import JsonView from "react18-json-view";
 
