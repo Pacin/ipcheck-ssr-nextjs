@@ -52,6 +52,15 @@ export async function getServerSideProps({ req, res }) {
       }),
       { req, res, maxAge: 60 * 60 * 24 * 30 }
     );
+  } else {
+    setCookie(
+      "kub",
+      JSON.stringify({
+        country: "US",
+        currency: { code: "USD", name: "U.S. Dollars", symbol: "$" },
+      }),
+      { req, res, maxAge: 60 * 60 * 24 * 30 }
+    );
   }
 
   return {
