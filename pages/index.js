@@ -25,7 +25,7 @@ export default function Home({ ip, data }) {
   );
 }
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req, res }) {
   let ip = req.headers["x-real-ip"];
   if (!ip) {
     const forwardedFor = req.headers["x-forwarded-for"];
