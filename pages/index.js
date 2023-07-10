@@ -37,11 +37,11 @@ export async function getServerSideProps({ req, res }) {
     }
   }
 
-  const res = await fetch(
+  const resx = await fetch(
     `https://api.ipgeolocation.io/ipgeo?apiKey=0beb06fb28d748f98a926c81f0afbc70&ip=${ip}`
   );
 
-  const data = await res.json();
+  const data = await resx.json();
 
   if (data.ip) {
     setCookie(
