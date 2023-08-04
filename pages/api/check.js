@@ -2,7 +2,7 @@ import COUNTRIES from "../../assets/countries.json";
 const fs = require("fs");
 const Reader = require("@maxmind/geoip2-node").Reader;
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === "POST") {
     const { ip } = req.body;
     // Synchronous database opening
