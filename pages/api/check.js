@@ -1,14 +1,20 @@
 import COUNTRIES from "../../assets/countries.json";
 const fs = require("fs");
 const Reader = require("@maxmind/geoip2-node").Reader;
+const path = require("path");
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
   if (req.method === "POST") {
     const { ip } = req.body;
-    // Synchronous database opening
+
     let response = null;
 
-    const dbBuffer = fs.readFileSync("./assets/GeoLite2-Country.mmdb");
+    const filePath = path.join(process.cwd(), "assets");
+
+    const dbBuffer = fs.readFileSync(
+      filePath + "/GeoLite2-Country.mmdb",
+      "utf-8"
+    );
 
     // This reader object should be reused across lookups as creation of it is
     // expensive.
@@ -33,4 +39,6 @@ export default async function handler(req, res) {
       symbol: COUNTRIES[response.country.isoCode].symbol,
     });
   }
-}
+};
+
+export default handler;
