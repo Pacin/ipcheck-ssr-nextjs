@@ -23,7 +23,7 @@ export default function Home({ ip }) {
 
     fetch("/api/check", {
       method: "POST",
-      body: JSON.stringify({ ip: userIp }),
+      body: JSON.stringify({ ip: ip }),
       headers: {
         "Content-Type": "application/json",
       },
