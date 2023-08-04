@@ -2,21 +2,21 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import JsonView from "react18-json-view";
 
-const fetchData = async (ip) => {
-  const response = await fetch("/api/check", {
-    method: "POST",
-    body: JSON.stringify({ ip }),
-  });
-
-  const data = await response.json();
-  return data;
-};
-
 export default function Home({ ip, data }) {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    fetchData(ip).then((res) => setUserData(res));
+    const fetchData = async (userIp) => {
+      const response = await fetch("/api/check", {
+        method: "POST",
+        body: JSON.stringify({ ip: userIp }),
+      });
+
+      const data = await response.json();
+      return setUserData(data);
+    };
+
+    fetchData(ip);
   }, []);
 
   return (

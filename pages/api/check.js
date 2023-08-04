@@ -1,11 +1,11 @@
 import COUNTRIES from "../../assets/countries.json";
+const fs = require("fs");
+const Reader = require("@maxmind/geoip2-node").Reader;
 
 export default function handler(req, res) {
   const { ip } = req.body;
   // Synchronous database opening
   let response = null;
-  const fs = require("fs");
-  const Reader = require("@maxmind/geoip2-node").Reader;
 
   const dbBuffer = fs.readFileSync("./assets/GeoLite2-Country.mmdb");
 
