@@ -16,7 +16,7 @@ export default function Home({ ip, data }) {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    fetchData().then((res) => setUserData(res));
+    fetchData(ip).then((res) => setUserData(res));
   }, []);
 
   return (
