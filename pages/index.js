@@ -1,8 +1,24 @@
-import { setCookie } from "cookies-next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import JsonView from "react18-json-view";
 
+const fetchData = async (ip) => {
+  const response = await fetch("/api/check", {
+    method: "POST",
+    body: JSON.stringify({ ip }),
+  });
+
+  const data = await response.json();
+  return data;
+};
+
 export default function Home({ ip, data }) {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    fetchData().then((res) => setUserData(res));
+  }, []);
+
   return (
     <>
       <Head>
@@ -18,7 +34,7 @@ export default function Home({ ip, data }) {
               <b>{ip}</b>
             </span>
           </p>
-          <JsonView src={data} />
+          {userData ? <JsonView src={userData} /> : null}
         </div>
       </main>
     </>
@@ -37,36 +53,9 @@ export async function getServerSideProps({ req, res }) {
     }
   }
 
-  const resx = await fetch(
-    `https://api.ipgeolocation.io/ipgeo?apiKey=0beb06fb28d748f98a926c81f0afbc70&ip=${ip}`
-  );
-
-  const data = await resx.json();
-
-  if (data.ip) {
-    setCookie(
-      "kub",
-      JSON.stringify({
-        country: data.country_code2,
-        currency: data.currency,
-      }),
-      { req, res, maxAge: 60 * 60 * 24 * 30 }
-    );
-  } else {
-    setCookie(
-      "kub",
-      JSON.stringify({
-        country: "US",
-        currency: { code: "USD", name: "U.S. Dollars", symbol: "$" },
-      }),
-      { req, res, maxAge: 60 * 60 * 24 * 30 }
-    );
-  }
-
   return {
     props: {
       ip,
-      data: data,
     },
   };
 }
