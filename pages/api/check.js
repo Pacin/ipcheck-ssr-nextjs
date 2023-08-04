@@ -11,10 +11,7 @@ const handler = async (req, res) => {
 
     const filePath = path.join(process.cwd(), "assets");
 
-    const dbBuffer = fs.readFileSync(
-      filePath + "/GeoLite2-Country.mmdb",
-      "utf-8"
-    );
+    const dbBuffer = fs.readFileSync(filePath + "/GeoLite2-Country.mmdb");
 
     // This reader object should be reused across lookups as creation of it is
     // expensive.
