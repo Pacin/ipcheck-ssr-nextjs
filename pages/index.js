@@ -20,6 +20,14 @@ export default function Home({ ip }) {
     };
 
     fetchData(ip);
+
+    fetch("/api/check", {
+      method: "POST",
+      body: JSON.stringify({ ip: userIp }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json((x) => setUserData(x)));
   }, []);
 
   return (
